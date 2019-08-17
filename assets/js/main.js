@@ -4,7 +4,14 @@
 	// Mobile dropdown
 	$('.menu-item-has-children>a').on('click', function (e) {
 		e.preventDefault();
-		$(this).parent().toggleClass('active');
+		if ($(this).parent().hasClass('active')) {
+			$(this).next('.sub-menu').slideUp(300)
+			$(this).parent().removeClass('active');
+		} else {
+			$(this).next('.sub-menu').slideDown(300)
+			$(this).parent().addClass('active');
+		}
+
 	});
 
 	// Aside Nav

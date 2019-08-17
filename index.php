@@ -39,11 +39,11 @@ get_header();
 				<!-- post -->
 				<div class="post post-thumb">
 					<a class="post-img" href="<?php the_permalink(); ?>">
-						<?php echo get_the_post_thumbnail($post->id, 'post-thumb'); ?>
+						<?php echo get_the_post_thumbnail($id, 'post-thumb'); ?>
 					</a>
 					<div class="post-body">
 						<div class="post-category">
-							<?php $categories = get_the_category($post->ID);
+							<?php $categories = get_the_category($id);
 									if ($categories) {
 										foreach ($categories as $category) {
 											$out .= '<a href="' . get_category_link($category->term_id) . '">' . $category->name . '</a> ';
@@ -62,7 +62,8 @@ get_header();
 				</div>
 				<!-- /post -->
 				<?php }
-				}  ?>
+				}
+				wp_reset_postdata() ?>
 
 			</div>
 
@@ -75,12 +76,12 @@ get_header();
 				<!-- post -->
 				<div class="post post-thumb">
 					<a class="post-img" href="<?php the_permalink(); ?>">
-						<?php echo get_the_post_thumbnail($post->ID, 'post-thumb-medium'); ?>
+						<?php echo get_the_post_thumbnail($id, 'post-thumb-medium'); ?>
 					</a>
 					<div class="post-body">
 						<div class="post-category">
-							
-							<?php $categoriesRight = get_the_category($post->ID);					
+
+							<?php $categoriesRight = get_the_category($id);
 									if ($categoriesRight) {
 										foreach ($categoriesRight as $category) {
 											$out .= '<a href="' . get_category_link($category->term_id) . '">' . $category->name . '</a> ';
@@ -100,7 +101,9 @@ get_header();
 				<!-- /post -->
 
 				<?php }
-				}  ?>
+				}
+				wp_reset_postdata()
+				?>
 
 			</div>
 		</div>
@@ -121,84 +124,54 @@ get_header();
 				<div class="row">
 					<div class="col-md-12">
 						<div class="section-title">
-							<h2 class="title">Recent posts</h2>
+							<h2 class="title">Свежие записи</h2>
 						</div>
 					</div>
-					<!-- post -->
-					<div class="col-md-6">
-						<div class="post">
-							<a class="post-img" href="blog-post.html"><img src="./img/post-1.jpg" alt=""></a>
-							<div class="post-body">
-								<div class="post-category">
-									<a href="category.html">Travel</a>
-								</div>
-								<h3 class="post-title"><a href="blog-post.html">Sed ut perspiciatis, unde omnis iste natus error sit</a></h3>
-								<ul class="post-meta">
-									<li><a href="author.html">John Doe</a></li>
-									<li>20 April 2018</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-					<!-- /post -->
+
+					<?php $posts_new = get_posts(array(
+						'numberposts' => 4,
+						'orderby'     => 'date',
+						'post_type'   => 'post',
+						'suppress_filters' => true,
+					));
+
+					foreach ($posts_new as $index => $post) {
+						setup_postdata($post);
+						// print_r($post_new)
+						?>
 
 					<!-- post -->
 					<div class="col-md-6">
 						<div class="post">
-							<a class="post-img" href="blog-post.html"><img src="./img/post-2.jpg" alt=""></a>
+							<a class="post-img" href="<?php the_permalink(); ?>">
+								<?php echo get_the_post_thumbnail($id, 'post-thumb-medium'); ?>
+							</a>
 							<div class="post-body">
 								<div class="post-category">
-									<a href="category.html">Technology</a>
-									<a href="category.html">Lifestyle</a>
+									<?php $categories = get_the_category($id);
+										if ($categories) {
+											foreach ($categories as $category) {
+												$out .= '<a href="' . get_category_link($category->term_id) . '">' . $category->name . '</a> ';
+											}
+											echo trim($out, ', ');
+											$out = '';
+										}
+										?>
 								</div>
-								<h3 class="post-title"><a href="blog-post.html">Ne bonorum praesent cum, labitur persequeris definitionem quo cu?</a></h3>
+								<h3 class="post-title"><a href="<?php the_permalink(); ?>"><?php the_title() ?></a></h3>
 								<ul class="post-meta">
-									<li><a href="author.html">John Doe</a></li>
-									<li>20 April 2018</li>
+									<li><a href="author.html"><?php the_author() ?></a></li>
+									<li><?php the_time('F jS, Y'); ?></li>
 								</ul>
 							</div>
 						</div>
 					</div>
+					<?php  }
+					wp_reset_postdata()	?>
+
 					<!-- /post -->
 
-					<div class="clearfix visible-md visible-lg"></div>
 
-					<!-- post -->
-					<div class="col-md-6">
-						<div class="post">
-							<a class="post-img" href="blog-post.html"><img src="./img/post-4.jpg" alt=""></a>
-							<div class="post-body">
-								<div class="post-category">
-									<a href="category.html">Health</a>
-								</div>
-								<h3 class="post-title"><a href="blog-post.html">Postea senserit id eos, vivendo periculis ei qui</a></h3>
-								<ul class="post-meta">
-									<li><a href="author.html">John Doe</a></li>
-									<li>20 April 2018</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-					<!-- /post -->
-
-					<!-- post -->
-					<div class="col-md-6">
-						<div class="post">
-							<a class="post-img" href="blog-post.html"><img src="./img/post-7.jpg" alt=""></a>
-							<div class="post-body">
-								<div class="post-category">
-									<a href="category.html">Health</a>
-									<a href="category.html">Lifestyle</a>
-								</div>
-								<h3 class="post-title"><a href="blog-post.html">Sed ut perspiciatis, unde omnis iste natus error sit</a></h3>
-								<ul class="post-meta">
-									<li><a href="author.html">John Doe</a></li>
-									<li>20 April 2018</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-					<!-- /post -->
 				</div>
 				<!-- /row -->
 
@@ -206,63 +179,57 @@ get_header();
 				<div class="row">
 					<div class="col-md-12">
 						<div class="section-title">
-							<h2 class="title">Lifestyle</h2>
+							<h2 class="title">JavaScript</h2>
 						</div>
 					</div>
-					<!-- post -->
-					<div class="col-md-4">
-						<div class="post post-sm">
-							<a class="post-img" href="blog-post.html"><img src="./img/post-9.jpg" alt=""></a>
-							<div class="post-body">
-								<div class="post-category">
-									<a href="category.html">Lifestyle</a>
-								</div>
-								<h3 class="post-title title-sm"><a href="blog-post.html">Mel ut impetus suscipit tincidunt. Cum id ullum laboramus persequeris.</a></h3>
-								<ul class="post-meta">
-									<li><a href="author.html">John Doe</a></li>
-									<li>20 April 2018</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-					<!-- /post -->
 
-					<!-- post -->
-					<div class="col-md-4">
-						<div class="post post-sm">
-							<a class="post-img" href="blog-post.html"><img src="./img/post-8.jpg" alt=""></a>
-							<div class="post-body">
-								<div class="post-category">
-									<a href="category.html">Fashion</a>
-									<a href="category.html">Lifestyle</a>
-								</div>
-								<h3 class="post-title title-sm"><a href="blog-post.html">Postea senserit id eos, vivendo periculis ei qui</a></h3>
-								<ul class="post-meta">
-									<li><a href="author.html">John Doe</a></li>
-									<li>20 April 2018</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-					<!-- /post -->
+					<?php $posts_6 = get_posts(array(
+						'numberposts' => 3,
+						'category' => 6,
+						'orderby'     => 'date',
+						'post_type'   => 'post',
+						'suppress_filters' => true,
+					));
 
+					foreach ($posts_6 as $index => $post) {
+						setup_postdata($post);
+
+						?>
 					<!-- post -->
 					<div class="col-md-4">
 						<div class="post post-sm">
-							<a class="post-img" href="blog-post.html"><img src="./img/post-11.jpg" alt=""></a>
+							<a class="post-img" href="<?php the_permalink(); ?>">
+								<?php echo get_the_post_thumbnail($id, 'post-thumb-medium'); ?>
+							</a>
 							<div class="post-body">
 								<div class="post-category">
-									<a href="category.html">Technology</a>
+									<?php $categories = get_the_category($id);
+										if ($categories) {
+											foreach ($categories as $category) {
+												$out .= '<a href="' . get_category_link($category->term_id) . '">' . $category->name . '</a> ';
+											}
+											echo trim($out, ', ');
+											$out = '';
+										}
+										?>
 								</div>
-								<h3 class="post-title title-sm"><a href="blog-post.html">Sed ut perspiciatis, unde omnis iste natus error sit</a></h3>
+								<h3 class="post-title title-sm">
+									<a href="<?php the_permalink() ?>">
+										<?php the_title() ?>
+									</a>
+								</h3>
 								<ul class="post-meta">
-									<li><a href="author.html">John Doe</a></li>
-									<li>20 April 2018</li>
+									<li><a href="author.html"> <?php the_author() ?></a></li>
+									<li><?php the_time('F jS, Y'); ?></li>
 								</ul>
 							</div>
 						</div>
 					</div>
 					<!-- /post -->
+					<?php }
+					wp_reset_postdata()
+					?>
+
 				</div>
 				<!-- /row -->
 
@@ -270,63 +237,58 @@ get_header();
 				<div class="row">
 					<div class="col-md-12">
 						<div class="section-title">
-							<h2 class="title">Fashion & Travel</h2>
+							<h2 class="title">Раскрутка</h2>
 						</div>
 					</div>
-					<!-- post -->
-					<div class="col-md-4">
-						<div class="post post-sm">
-							<a class="post-img" href="blog-post.html"><img src="./img/post-10.jpg" alt=""></a>
-							<div class="post-body">
-								<div class="post-category">
-									<a href="category.html">Travel</a>
-								</div>
-								<h3 class="post-title title-sm"><a href="blog-post.html">Ne bonorum praesent cum, labitur persequeris definitionem quo cu?</a></h3>
-								<ul class="post-meta">
-									<li><a href="author.html">John Doe</a></li>
-									<li>20 April 2018</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-					<!-- /post -->
 
-					<!-- post -->
-					<div class="col-md-4">
-						<div class="post post-sm">
-							<a class="post-img" href="blog-post.html"><img src="./img/post-12.jpg" alt=""></a>
-							<div class="post-body">
-								<div class="post-category">
-									<a href="category.html">Lifestyle</a>
-								</div>
-								<h3 class="post-title title-sm"><a href="blog-post.html">Sed ut perspiciatis, unde omnis iste natus error sit</a></h3>
-								<ul class="post-meta">
-									<li><a href="author.html">John Doe</a></li>
-									<li>20 April 2018</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-					<!-- /post -->
+					<?php
 
+					$posts_7 = get_posts(array(
+						'numberposts' => 3,
+						'category' => 7,
+						'orderby'     => 'date',
+						'post_type'   => 'post',
+						'suppress_filters' => true,
+					));
+
+					$post = '';
+
+					foreach ($posts_7 as $index => $post) {
+						setup_postdata($post);
+
+						?>
 					<!-- post -->
 					<div class="col-md-4">
 						<div class="post post-sm">
-							<a class="post-img" href="blog-post.html"><img src="./img/post-13.jpg" alt=""></a>
+							<a class="post-img" href="<?php the_permalink(); ?>">
+								<?php echo get_the_post_thumbnail($id, 'post-thumb-medium'); ?>
+							</a>
 							<div class="post-body">
 								<div class="post-category">
-									<a href="category.html">Travel</a>
-									<a href="category.html">Lifestyle</a>
+									<?php $categories = get_the_category($id);
+										if ($categories) {
+											foreach ($categories as $category) {
+												$out .= '<a href="' . get_category_link($category->term_id) . '">' . $category->name . '</a> ';
+											}
+											echo trim($out, ', ');
+											$out = '';
+										}
+										?>
 								</div>
-								<h3 class="post-title title-sm"><a href="blog-post.html">Mel ut impetus suscipit tincidunt. Cum id ullum laboramus persequeris.</a></h3>
+								<h3 class="post-title title-sm">
+									<a href="<?php the_permalink(); ?>"><?php the_title() ?></a>
+								</h3>
 								<ul class="post-meta">
-									<li><a href="author.html">John Doe</a></li>
-									<li>20 April 2018</li>
+									<li><a href="author.html"> <?php the_author() ?></a></li>
+									<li><?php the_time('F jS, Y'); ?></li>
 								</ul>
 							</div>
 						</div>
 					</div>
 					<!-- /post -->
+					<?php }
+					wp_reset_postdata(); ?>
+
 				</div>
 				<!-- /row -->
 
@@ -334,64 +296,56 @@ get_header();
 				<div class="row">
 					<div class="col-md-12">
 						<div class="section-title">
-							<h2 class="title">Technology & Health</h2>
+							<h2 class="title">Всякое</h2>
 						</div>
 					</div>
-					<!-- post -->
-					<div class="col-md-4">
-						<div class="post post-sm">
-							<a class="post-img" href="blog-post.html"><img src="./img/post-4.jpg" alt=""></a>
-							<div class="post-body">
-								<div class="post-category">
-									<a href="category.html">Health</a>
-								</div>
-								<h3 class="post-title title-sm"><a href="blog-post.html">Postea senserit id eos, vivendo periculis ei qui</a></h3>
-								<ul class="post-meta">
-									<li><a href="author.html">John Doe</a></li>
-									<li>20 April 2018</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-					<!-- /post -->
 
-					<!-- post -->
-					<div class="col-md-4">
-						<div class="post post-sm">
-							<a class="post-img" href="blog-post.html"><img src="./img/post-1.jpg" alt=""></a>
-							<div class="post-body">
-								<div class="post-category">
-									<a href="category.html">Travel</a>
-								</div>
-								<h3 class="post-title title-sm"><a href="blog-post.html">Mel ut impetus suscipit tincidunt. Cum id ullum laboramus persequeris.</a></h3>
-								<ul class="post-meta">
-									<li><a href="author.html">John Doe</a></li>
-									<li>20 April 2018</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-					<!-- /post -->
+					<?php $posts_5 = get_posts(array(
+						'numberposts' => 3,
+						'category' => 5,
+						'orderby'     => 'date',
+						'post_type'   => 'post',
+						'suppress_filters' => true,
+					));
 
+					foreach ($posts_5 as $index => $post) {
+						setup_postdata($post);
+
+						?>
 					<!-- post -->
 					<div class="col-md-4">
 						<div class="post post-sm">
-							<a class="post-img" href="blog-post.html"><img src="./img/post-3.jpg" alt=""></a>
+							<a class="post-img" href="<?php the_permalink(); ?>">
+								<?php echo get_the_post_thumbnail($id, 'post-thumb-middle'); ?>
+							</a>
 							<div class="post-body">
 								<div class="post-category">
-									<a href="category.html">Lifestyle</a>
+									<?php $categories = get_the_category($id);
+										if ($categories) {
+											foreach ($categories as $category) {
+												$out .= '<a href="' . get_category_link($category->term_id) . '">' . $category->name . '</a> ';
+											}
+											echo trim($out, ', ');
+											$out = '';
+										}
+										?>
 								</div>
-								<h3 class="post-title title-sm"><a href="blog-post.html">Ne bonorum praesent cum, labitur persequeris definitionem quo cu?</a></h3>
+								<h3 class="post-title title-sm"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
 								<ul class="post-meta">
-									<li><a href="author.html">John Doe</a></li>
-									<li>20 April 2018</li>
+									<li><a href="author.html"> <?php the_author() ?></a></li>
+									<li><?php the_time('F jS, Y'); ?></li>
 								</ul>
 							</div>
 						</div>
 					</div>
 					<!-- /post -->
+					<?php } 
+					?>
+
 				</div>
 				<!-- /row -->
+
+
 			</div>
 			<div class="col-md-4">
 				<!-- ad widget-->

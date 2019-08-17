@@ -39,11 +39,7 @@
 					</ul>
 					<!-- /social -->
 
-					<!-- logo -->
-					<div class="nav-logo">
-						<a href="index.html" class="logo"><img src="./img/logo.png" alt=""></a>
-					</div>
-
+					<!-- logo -->	
 					<div class="nav-logo">
 						<?php the_custom_logo(); ?>
 					</div>
@@ -85,12 +81,16 @@
 			<!-- /Main Nav -->
 
 			<!-- Aside Nav -->
+			<div id="nav-aside">
 			<?php wp_nav_menu([
 						'theme_location'  => 'top-menu',
-						'container'       => 'div',
+						'container'       => false,
 						'menu_class'      => 'nav-aside-menu',
 						'container_id'    => 'nav-aside'
 					]); ?>
+			<button class="nav-close nav-aside-close"><span></span></button>
+			</div>
+		
 			<!-- /Aside Nav -->
 		</div>
 		<!-- /NAV -->
