@@ -1,15 +1,16 @@
-(function($) {
+(function ($) {
 	"use strict"
 
 	// Mobile dropdown
-	$('.has-dropdown>a').on('click', function() {
+	$('.menu-item-has-children>a').on('click', function (e) {
+		e.preventDefault();
 		$(this).parent().toggleClass('active');
 	});
 
 	// Aside Nav
-	$(document).click(function(event) {
+	$(document).click(function (event) {
 		if (!$(event.target).closest($('#nav-aside')).length) {
-			if ( $('#nav-aside').hasClass('active') ) {
+			if ($('#nav-aside').hasClass('active')) {
 				$('#nav-aside').removeClass('active');
 				$('#nav').removeClass('shadow-active');
 			} else {
@@ -27,7 +28,7 @@
 	});
 
 
-	$('.search-btn').on('click', function() {
+	$('.search-btn').on('click', function () {
 		$('#nav-search').toggleClass('active');
 	});
 

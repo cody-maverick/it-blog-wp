@@ -42,12 +42,16 @@ if (!function_exists('it_blog_setup')) :
 		 *
 		 * @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
 		 */
-		add_theme_support('post-thumbnails');
+		add_theme_support('post-thumbnails', array('post'));
+
+		// Регистрируем размеры миниатюр
+		add_image_size('post-thumb', 1200, 800, true);
+    add_image_size('post-thumb-medium', 700, 467, true);
+    add_image_size('post-thumb-small', 180, 120, true);
 
 		// This theme uses wp_nav_menu() in one location.
-		register_nav_menus(array(
-			'menu-1' => esc_html__('Primary', 'it-blog'),
-		));
+		register_nav_menu('top-menu', 'Верхнее меню');
+		register_nav_menu('mobile-menu', 'Мобильное меню');
 
 		/*
 		 * Switch default core markup for search form, comment form, and comments
@@ -135,9 +139,9 @@ function it_blog_scripts()
 
 	// подключаем
 	wp_enqueue_script('jquery');
-	wp_enqueue_script('bootstrap', get_template_directory_uri() . '/assets/js/bootstrap.min.js', array(), 'v.1', true);
-	wp_enqueue_script('stellar', get_template_directory_uri() . '/assets/js/jquery.stellar.min.js', array(), 'v.1', true);
-	wp_enqueue_script('main', get_template_directory_uri() . '/assets/js/main.js', array(), 'v.1', true);
+	wp_enqueue_script('bootstrap', get_template_directory_uri() . '/assets/js/bootstrap.min.js', array('jquery'), 'v.1', true);
+	wp_enqueue_script('stellar', get_template_directory_uri() . '/assets/js/jquery.stellar.min.js', array('jquery'), 'v.1', true);
+	wp_enqueue_script('main', get_template_directory_uri('jquery') . '/assets/js/main.js', array(), 'v.1', true);
 }
 
 function it_blog_styles()
@@ -148,7 +152,7 @@ function it_blog_styles()
 	wp_enqueue_style('main-styles', get_template_directory_uri() . '/assets/css/style.css');
 }
 
-add_action( 'wp_footer', 'it_blog_scripts' );
+add_action('wp_footer', 'it_blog_scripts');
 add_action('wp_enqueue_scripts', 'it_blog_styles');
 
 /**

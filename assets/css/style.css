@@ -327,13 +327,13 @@ textarea.input {
   transform: translateX(-50%);
 }
 
-.nav-logo .logo {
+.nav-logo .custom-logo-link {
   display: inline-block;
   line-height: 70px;
   height: 70px;
 }
 
-.nav-logo .logo>img {
+.nav-logo .custom-logo-link>img {
   width: 100%;
   max-height: 70px;
 }
@@ -418,8 +418,45 @@ textarea.input {
 	dropdown
 \*----------------------------*/
 
-.nav-menu li.has-dropdown {
+.nav-menu li.has-dropdown, .nav-menu li.menu-item-has-children {
   position: relative;
+}
+
+.nav-menu li.menu-item .sub-menu {
+  position: absolute;
+  left: 0;
+  width: 200px;
+  text-align: left;
+  z-index: 60;
+  -webkit-transform: translateY(10px);
+  -ms-transform: translateY(10px);
+  transform: translateY(10px);
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: 0.2s all;
+  transition: 0.2s all;
+  background-color: #fff;
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  border-top: 2px solid #ee4266;
+  margin-left: 0;
+}
+
+.nav-menu li.menu-item .sub-menu li {
+  border-bottom: 1px solid #e8eaed;
+}
+.nav-menu li.menu-item .sub-menu li a {
+  display: block;
+  padding: 10px;
+  line-height: 20px;
+}
+
+.nav-menu li.menu-item:hover .sub-menu {
+  -webkit-transform: translateY(0px);
+  -ms-transform: translateY(0px);
+  transform: translateY(0px);
+  opacity: 1;
+  visibility: visible;
 }
 
 .nav-menu li.has-dropdown>a:after {
@@ -579,27 +616,27 @@ textarea.input {
   color: #ee4266;
 }
 
-.nav-aside-menu li.has-dropdown>a {
+.nav-aside-menu li.menu-item-has-children>a {
   cursor: pointer;
 }
 
-.nav-aside-menu li.has-dropdown>a:after {
+.nav-aside-menu li.menu-item-has-children>a:after {
   font-family: 'FontAwesome';
   content: "\f0d7";
   float: right;
 }
 
-.nav-aside-menu li.has-dropdown>.dropdown {
+.nav-aside-menu li.menu-item-has-children>.sub-menu {
   display: none;
   margin-left: 30px;
   border-left: 1px solid #323335;
 }
 
-.nav-aside-menu li.has-dropdown.active>.dropdown {
+.nav-aside-menu li.menu-item-has-children.active>.sub-menu {
   display: block;
 }
 
-.nav-aside-menu li.has-dropdown>.dropdown a {
+.nav-aside-menu li.menu-item-has-children>.sub-menu a {
   padding: 15px;
 }
 
