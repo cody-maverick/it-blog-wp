@@ -46,8 +46,8 @@ if (!function_exists('it_blog_setup')) :
 
 		// Регистрируем размеры миниатюр
 		add_image_size('post-thumb', 1200, 800, true);
-    add_image_size('post-thumb-medium', 700, 467, true);
-    add_image_size('post-thumb-small', 180, 120, true);
+		add_image_size('post-thumb-medium', 700, 467, true);
+		add_image_size('post-thumb-small', 180, 120, true);
 
 		// This theme uses wp_nav_menu() in one location.
 		register_nav_menu('top-menu', 'Верхнее меню');
@@ -113,13 +113,14 @@ add_action('after_setup_theme', 'it_blog_content_width', 0);
 function it_blog_widgets_init()
 {
 	register_sidebar(array(
-		'name'          => esc_html__('Sidebar', 'it-blog'),
-		'id'            => 'sidebar-1',
-		'description'   => esc_html__('Add widgets here.', 'it-blog'),
-		'before_widget' => '<section id="%1$s" class="widget %2$s">',
-		'after_widget'  => '</section>',
-		'before_title'  => '<h2 class="widget-title">',
-		'after_title'   => '</h2>',
+		'name'          => 'Right Sidebar',
+		'id'            => "right-sidebar-1",
+		'description'   => 'Первый сайдбар в правой колонке',
+		'class'         => 'col-md-4',
+		'before_widget' => '<div id="%1$s" class="aside-widget %2$s">',
+		'after_widget'  => "</div>\n",
+		'before_title'  => '<div class="section-title"><h2 class="title">',
+		'after_title'   => "</h2>\n</div>\n",
 	));
 }
 add_action('widgets_init', 'it_blog_widgets_init');
@@ -155,6 +156,15 @@ function it_blog_styles()
 add_action('wp_footer', 'it_blog_scripts');
 add_action('wp_enqueue_scripts', 'it_blog_styles');
 
+
+
+add_filter( 'excerpt_length', function(){
+	return 25;
+} );
+
+add_filter('excerpt_more', function($more) {
+	return '...';
+});
 /**
  * Implement the Custom Header feature.
  */

@@ -788,6 +788,11 @@ textarea.input {
   font-size: 18px;
 }
 
+.post-new .post-title {
+  max-height: 38px;
+  overflow: hidden;
+}
+
 .post .post-title.title-sm {
   font-size: 16px;
 }
@@ -1273,11 +1278,23 @@ textarea.input {
 	newsletter widget
 \*----------------------------*/
 
-.newsletter-widget {
+.newsletter-widget,
+.emaillist {
   position: relative;
   padding: 0px 30px 30px;
   border-left: 2px dashed #e8eaed;
   border-right: 2px dashed #e8eaed;
+}
+
+.es-field-wrap label input,
+.es-field-wrap label input[type="submit"] {
+  width: 100%;
+  height: 40px;
+  padding: 0px 15px;
+  background-color: #fff;
+  border-radius: 2px;
+  border: 2px solid #e8eaed;
+  font-weight: 400;
 }
 
 .aside-widget:last-child .newsletter-widget {
@@ -1318,6 +1335,38 @@ textarea.input {
 /*----------------------------*\
 	category widget
 \*----------------------------*/
+
+.widget_categories ul li {
+  padding: 15px 0px;
+  border-bottom: 1px solid #e8eaed;
+  font-size: 14px;
+  color: #97989b;
+  margin-left: 15px;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+}
+
+.widget_categories ul li a {
+  display: block;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.widget_categories ul li a span {
+  float: right;
+  font-size: 14px;
+  color: #97989b;
+  margin-left: 15px;
+}
+
+.footer-widget .widget_categories ul li {
+  border-color: #323335;
+}
+
+
+
+
 
 .category-widget ul li {
   padding: 15px 0px;
@@ -1580,4 +1629,16 @@ textarea.input {
     float: left;
     margin-left: 0px;
   }
+}
+
+/* Ajax-load-more */
+
+.ajax-load-more-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.alm-btn-wrap {
+  display: flex;
+  justify-content: center;
 }
